@@ -1,4 +1,4 @@
-#include <iostream>
+#include "hw1.hpp"
 
 class Some_form
 {
@@ -34,7 +34,7 @@ class ChildRectangular : public Some_form
     }
 };
 
-int main() {
+void task1() {
   Some_form f1;
   f1.how_many_sides();
 
@@ -44,5 +44,5 @@ int main() {
   ChildRectangular chrect1;
   chrect1.how_many_sides();
 
-  return (0); 
+  return ; 
 }
