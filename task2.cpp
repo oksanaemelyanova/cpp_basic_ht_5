@@ -172,6 +172,9 @@ class Quadrilateral : public Some_form
         std::cout << "sorry, the form isn't initialized yet" << std::endl;
       }
     }
+    void flag(){
+      goodOne = 0;
+    }
 };
 
 
@@ -189,6 +192,7 @@ class Parallelogram : public Quadrilateral
       }
       else {
         std::cout << "error, wrong proportions for parallelogram" << std::endl;
+        
       }
     }
     ~Parallelogram() {};  
@@ -198,11 +202,10 @@ class ChildRectangular : public Parallelogram
 {
   public:
     ChildRectangular(int a, int b, int c, int d, int angle) : Parallelogram (a, b, c, d, angle, angle, angle, angle)
-    {
-      
-      //form_name();      
+    {     
       if (angle != 90) {
         std::cout << "error, the angle must be 90 degrees" << std::endl;
+        flag();
       }
       else {
         Some_form::name = "Rectangular";
@@ -221,6 +224,22 @@ class square : public ChildRectangular
       //form_name();        
     }
   ~square() {}  
+};
+
+class romb : public Parallelogram
+{
+  public:
+    romb(int side, int A, int B, int C, int D) : Parallelogram (side, side, side, side, A, B, C, D)
+    {
+      if (A == C && B == D) {
+        Some_form::name = "romb";
+      }
+      else {
+        std::cout << "error, wrong proportions for romb" << std::endl;
+        flag();
+      }           
+    }
+  ~romb() {}  
 };
 
 //=========tests=======//
@@ -251,30 +270,39 @@ void task2() {
   // equilateralTriangle eqT2(767);
   // eqT2.getTriangleValues();
  
-  std::cout << "-------quadriliteral tests------" << std::endl;
-  Quadrilateral qq1(77, 11, 22, 33, 50, 10, 100, 200);
-  qq1.getQValues();
+  // std::cout << "-------quadriliteral tests------" << std::endl;
+  // Quadrilateral qq1(77, 11, 22, 33, 50, 10, 100, 200);
+  // qq1.getQValues();
 
-  std::cout << "-------parallelogram tests------" << std::endl;
-  std:: cout << "correct one: " << std::endl;
-  Parallelogram pp1(77, 11, 77, 11, 50, 10, 50, 10);
-  pp1.getQValues();
-  std::cout << "wrong ones: " << std::endl;
-  Parallelogram pp2(76, 11, 77, 11, 50, 10, 50, 10);
-  pp2.getQValues();
+  // std::cout << "-------parallelogram tests------" << std::endl;
+  // std:: cout << "correct one: " << std::endl;
+  // Parallelogram pp1(77, 11, 77, 11, 50, 10, 50, 10);
+  // pp1.getQValues();
+  // std::cout << "wrong ones: " << std::endl;
+  // Parallelogram pp2(76, 11, 77, 11, 50, 10, 50, 10);
+  // pp2.getQValues();
 
   std::cout << "-------rectangular tests------" << std::endl;
-  std:: cout << "correct one: " << std::endl;
-  ChildRectangular chrect1(5, 3, 5, 3, 90);
-  chrect1.getQValues();
-  std::cout << "wrong ones: " << std::endl;
-  ChildRectangular chrect2(5, 13, 15, 3, 90);
-  chrect2.getQValues();
-  ChildRectangular chrect3(5, 3, 5, 3, 60);
-  chrect3.getQValues();
+  // std:: cout << "correct one: " << std::endl;
+  // ChildRectangular chrect1(5, 3, 5, 3, 90);
+  // chrect1.getQValues();
+  // std::cout << "wrong ones: " << std::endl;
+  // ChildRectangular chrect2(5, 13, 15, 3, 90);
+  // chrect2.getQValues();
+  // ChildRectangular chrect3(5, 3, 5, 3, 60);
+  // chrect3.getQValues();
 
-  // std::cout << "-------square test------" << std::endl;
-  // square sq1(98);
-  // sq1.getQValues();
+  std::cout << "-------square test------" << std::endl;
+  std:: cout << "correct one: " << std::endl;
+  square sq1(98);
+  sq1.getQValues();
+
+  std::cout << "-------romb test------" << std::endl;
+  std:: cout << "correct one: " << std::endl;
+  romb r1(13, 50, 10, 50, 10);
+  r1.getQValues();
+  std::cout << "wrong ones: " << std::endl;
+  romb r2 (13, 50, 20, 50, 10);
+  r2.getQValues();
   return ; 
 }
