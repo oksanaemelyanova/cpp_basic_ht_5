@@ -128,7 +128,7 @@ public:
 };
 
 void task2() {
-    std::cout << "task4" << std::endl;
+  
     Figure* ff = new Figure();
     ff->printInfo();
     

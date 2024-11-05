@@ -9,8 +9,13 @@ public:
     Figure() {}
     virtual ~Figure() {}
 
+    virtual bool goodOne() const {
+        return sides_count == 0;
+    }
+
     virtual void printInfo() const {
-        std::cout << name << std::endl;
+        std::cout << name << ":\n";
+        std::cout << (goodOne() ? "Correct\n" : "Wrong\n");
         std::cout << "Number of sides: " << sides_count << std::endl;
     }
 };
@@ -27,6 +32,10 @@ public:
         sides_count = 3;
     }
 
+    bool goodOne() const override {
+        return (A + B + C == 180);
+    }
+
     void printInfo() const override {
         Figure::printInfo();
         std::cout << "Sides: a=" << a << " b=" << b << " c=" << c << std::endl;
@@ -41,6 +50,10 @@ public:
         : Triangle(a, b, c, A, B, 90) {
         name = "Square Triangle";
     }
+
+    bool goodOne() const override {
+        return (Triangle::goodOne() && C == 90);
+    }
     ~SquareTriangle() {};
 };
 
@@ -51,6 +64,9 @@ public:
         name = "Isosceles Triangle";
     }
 
+    bool goodOne() const override {
+        return (Triangle::goodOne() && a == c && A == C);
+    }
     ~IsoscelesTriangle() {};
 };
 
@@ -61,6 +77,9 @@ public:
         name = "Equilateral Triangle";
     }
 
+    bool goodOne() const override {
+        return (Triangle::goodOne() && a == b && b == c && A == 60 && B == 60 && C == 60);
+    }
     ~EquilateralTriangle(){};
 };
 
@@ -75,6 +94,10 @@ public:
         : a(a), b(b), c(c), d(d), A(A), B(B), C(C), D(D) {
         name = "Quadrilateral";
         sides_count = 4;
+    }
+
+    bool goodOne() const override {
+        return (A + B + C + D == 360);
     }
 
     void printInfo() const override {
@@ -93,7 +116,9 @@ class Parallelogram : public Quadrilateral
     : Quadrilateral(a, b, c, d, A, B, C, D) {
       name = "Parallelogram";    
     }
-  
+    bool goodOne() const override {
+      return(Quadrilateral::goodOne() && a == c && b == d && A == C && B == D);
+    }    
     ~Parallelogram() {};  
 };
 
@@ -104,6 +129,9 @@ public:
         name = "Rectangle";
     }
 
+    bool goodOne() const override {
+        return (Quadrilateral::goodOne() && a == c && b == d && A == 90);
+    }
     ~Rectangle();
 };
 
@@ -114,6 +142,9 @@ public:
         name = "Square";
     }
 
+    bool goodOne() const override {
+        return (Parallelogram::goodOne());
+    }
     ~Square() {};
 };
 
@@ -123,15 +154,16 @@ public:
         : Parallelogram(side, side, side, side, A, B, A, B) {
         name = "Rhombus";
     }
-
+    bool goodOne() const override {
+        return (Parallelogram::goodOne() && a == b && A == C && B == D);
+    }
     ~Rhombus() {};
 };
 
 void task3() {
-    std::cout << "task4" << std::endl;
+
     Figure* ff = new Figure();
     ff->printInfo();
-    
 
     std::cout << "------triangle tests------ " << std::endl;
     Figure* tr1 = new Triangle (10, 20, 30, 50, 60, 70);
@@ -167,4 +199,3 @@ void task3() {
 
     return ;
 }
-
